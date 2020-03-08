@@ -35,13 +35,16 @@ export const tickerReducer = (
 ): State => {
   switch (action.type) {
     case FetchStates.Success:
+      let priceDirection = state.priceDirection;
+      if (action.payload.last > state.last) {
+        priceDirection = PriceDirections.UP;
+      } else if (action.payload.last < state.last) {
+        priceDirection = PriceDirections.DOWN;
+      }
       return {
         ...state,
         ...action.payload,
-        priceDirection:
-          action.payload.last >= state.last
-            ? PriceDirections.UP
-            : PriceDirections.DOWN
+        priceDirection
       };
     case FetchStates.Failure:
       return { ...state };
