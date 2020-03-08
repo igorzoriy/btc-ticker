@@ -16,20 +16,20 @@ export const Ticker: React.SFC<TickerProps> = ({
   volume,
   priceDirection
 }) => {
-  let directionClass = "";
+  let direction;
   switch (priceDirection) {
     case PriceDirections.UP:
-      directionClass = styles.green;
+      direction = <span className={styles.green}>(up)</span>;
       break;
     case PriceDirections.DOWN:
-      directionClass = styles.red;
+      direction = <span className={styles.red}>(down)</span>;
   }
 
   return (
     <div className={styles.ticker}>
       <div className={styles.title}>{title}</div>
-      <div className={`${styles.wide} ${directionClass}`}>
-        Last price: {last}
+      <div className={styles.wide}>
+        Last price: {last} {direction}
       </div>
       <div className={styles.green}>Bid: {bid}</div>
       <div className={styles.red}>Ask: {ask}</div>
