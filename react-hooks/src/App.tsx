@@ -10,14 +10,28 @@ export const App = () => {
 
   useEffect(() => {
     const stopPolling = startPolling(
-      "https://www.bitstamp.net/api/v2/ticker_hour/btcusd",
-      data => dispatch({ type: FetchStates.Success, payload: data }),
+      "https://www.bitstamp.net/api/v2/ticker_hour/btcusd/",
+      data => {
+        const payload = {
+          last: parseFloat(data.last),
+          open: parseFloat(data.open),
+          high: parseFloat(data.high),
+          low: parseFloat(data.low),
+          bid: parseFloat(data.bid),
+          ask: parseFloat(data.ask),
+          volume: parseFloat(data.volume)
+        };
+        dispatch({
+          type: FetchStates.Success,
+          payload
+        });
+      },
       error =>
         dispatch({
           type: FetchStates.Failure,
           error: error.message
         }),
-      3000
+      1000
     );
 
     return () => stopPolling();

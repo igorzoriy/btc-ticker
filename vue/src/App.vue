@@ -44,12 +44,12 @@ const store = new Vuex.Store({
 });
 
 const stopPolling = startPolling(
-  "https://www.bitstamp.net/api/v2/ticker_hour/btcusd",
+  "https://www.bitstamp.net/api/v2/ticker_hour/btcusd/",
   data => {
     store.commit("update", data);
   },
   error => console.log(error),
-  3000
+  1000
 );
 
 @Component({
